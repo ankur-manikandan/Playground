@@ -1,0 +1,50 @@
+= Tensorflow Serving
+
+== Build the Tensorflow Serving image
+
+- Pull the tensorflow docker image from docker hub
+----
+# Pull the tensorflow docker image from docker hub
+docker pull tensorflow/serving:1.13.0
+----
+
+- Run the docker container and model files to the tf serving image
+
+----
+# Run the docker container and copying VAE, AAE and ProbMF model files to tf serving image
+docker run -p 8501:8501 \
+  --mount type=bind,source=/Users/ankurmanikandan/Documents/Ankur/github/ds-serving/modelFiles/ae/1/protobufFiles,target=/models/ae/1 \
+  --mount type=bind,source=/Users/ankurmanikandan/Documents/Ankur/github/ds-serving/modelFiles/vae/2/protobufFiles,target=/models/vae/1 \
+  --mount type=bind,source=/Users/ankurmanikandan/Documents/Ankur/github/ds-serving/modelFiles/configs/models.conf,target=/models/models.conf \
+  -t tensorflow/serving --model_config_file=/models/models.conf
+----
+
+== Define the model confg file
+
+----
+model_config_list: {
+  config: {
+    name:  "ae",
+    base_path:  "/models/ae",
+    model_platform: "tensorflow",
+    model_version_policy: {
+        all: {}
+    }
+  },
+  config: {
+    name:  "vae",
+    base_path:  "/models/vae",
+    model_platform: "tensorflow",
+    model_version_policy: {
+        all: {}
+    }
+  }
+}
+----
+
+== Curl request
+
+----
+# Curl request to get prediction from VAE (for a single instance)
+curl -X POST -H "Content-type: application/json" http://localhost:8501/v1/models/vae:predict -d '{"instances": xxxx, "signature_name": "xxxx"}'
+----

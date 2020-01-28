@@ -1,0 +1,36 @@
+= Data Science Infrastructure
+
+== Docker
+
+Tool to standardize development, shipment and deployment of applications. https://www.docker.com/resources/what-container[Click here to learn more].
+
+=== Steps to run the DS_Env_Build Dockerfile
+
+----
+docker build -t ds-env:v1 .
+docker run -it --mount src="$(pwd)",target=/ds,type=bind -p 8888:8888 -p 8080:8080 -p 6006:6006 ds-env:v1
+----
+
+== Portainer
+
+Tool to build and manage docker containers. https://www.notion.so/Portainer-514341bb156344c3865944afd94cf9f4#a84e77deea3340e9b9c5ba0da3c3fbb7[Click here to learn more].
+
+=== Install Portainer
+
+- Pull the image.
+----
+docker pull portainer/portainer
+----
+
+- Start the image.
+----
+docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+----
+
+- Check if the image is running.
+
+----
+docker ps
+----
+
+- Open your browser and go to `http://192.168.33.10:9000/`.
