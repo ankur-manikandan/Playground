@@ -1,0 +1,13 @@
+cmd: python train.py matrix.pkl model.pkl
+deps:
+- md5: d2079fff89ccf7d56f9149179dd9b411
+  path: train.py
+- md5: ca85c9a5f9b65f31d26dc00b8185ba59
+  path: matrix.pkl
+md5: ea4e7e959ebc77c4428286f15c2ba8e6
+outs:
+- cache: true
+  md5: 60297956210d6988fcce7d769a1b6c58
+  metric: false
+  path: model.pkl
+wdir: .
