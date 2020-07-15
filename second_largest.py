@@ -26,6 +26,9 @@ if __name__ == '__main__':
     arr = list(range(n))
     arr = np.random.choice(arr, replace=False, size=n)
 
+    # Call function
+    second_larges_nbr(arr)
+
 
 """SQL Query: Determine the employee with the second largest salary.
 SELECT id, 
